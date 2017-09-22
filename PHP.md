@@ -37,26 +37,32 @@
     user = www
     group = www
 
+指定ini文件的目录
+
+    # /usr/local/php/bin/php-fpm -c /usr/local/php/etc/php.ini
+
+
 **启动 php-fpm 服务**
 
-    /usr/local/php/bin/php-fpm
+    # /usr/local/php/bin/php-fpm
 
 **查看是否启动成功：**
 
-    netstat -lnt | grep 9000
+    # netstat -lnt | grep 9000
     或
-    netstat -tunpl | grep 9000
+    # netstat -tunpl | grep 9000
 
 **重启 php-fpm 服务**
     kill -USR2 `cat /usr/local/php/var/run/php-fpm.pid`
 
 **关闭 php-fpm 服务**
 
-    pkill php-fpm
+    # pkill php-fpm
     或
-    kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
+    # kill -INT `cat /usr/local/php/var/run/php-fpm.pid`
 
 **查看PHP版本**
+    
     # php -v
     
 **卸载PHP**
@@ -80,11 +86,11 @@ PHP安装目录为：`/usr/local/php/`
 
 准备PHP 扩展库的编译环境
 
-    # /usr/local/php5/bin/phpize
+    # /usr/local/php/bin/phpize
 
 配置、编译、安装
 
-    # ./configure –with-openssl –with-php-config=/usr/local/php5/bin/php-config
+    # ./configure –with-openssl -with-php-config=/usr/local/php/bin/php-config
     
     # make
     
@@ -97,20 +103,30 @@ PHP安装目录为：`/usr/local/php/`
 进入文件夹将生成的文件移到ext下
 
     # cd /usr/local/php/lib/php/extensions/no-debug-non-zts-20160303
-    #mv openssl.so /usr/local/php/ext/
+    # mv openssl.so /usr/local/php/etc/
 
 编辑配置文件:
 
     # vi /usr/local/php/php.ini
 
-增加扩展:
+在php.ini文件中添加扩展:
 
-    extension=zip.so
+    extension=openssl.so
+
+通过运行 `php --ini` 查找 php.ini 文件位置
 
 重新加载配置:
 
     # /usr/local/php/sbin/php-fpm reload
     或
-    pkill php-fpm && /usr/local/php/bin/php-fpm
+    # pkill php-fpm && /usr/local/php/bin/php-fpm
 
 这样扩展就编译安装完成了~
+
+查看安装了哪些扩展
+    
+    # php -m
+
+常用的扩展：
+
+    php7.0-mysql php7.0-curl php7.0-gd php7.0-intl php-pear php-imagick php7.0-imap php7.0-mcrypt php-memcache  php7.0-pspell php7.0-recode php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-mbstring php-gettext
